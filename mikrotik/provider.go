@@ -25,7 +25,7 @@ func Provider(client *mt.Mikrotik) *schema.Provider {
 			},
 			"password": {
 				Type:        schema.TypeString,
-				Required:    true,
+				Required:    false,
 				DefaultFunc: schema.EnvDefaultFunc("MIKROTIK_PASSWORD", nil),
 				Description: "Password for mikrotik api",
 			},
