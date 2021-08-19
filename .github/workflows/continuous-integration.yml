@@ -6,8 +6,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        go: ["1.14"]
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        go: ["1.16"]
+        os: [ubuntu-latest]
     steps:
       - name: Set up Go
         uses: actions/setup-go@v1
@@ -25,5 +25,16 @@ jobs:
       - name: Build
         run: go build -v .
 
-      - name: Run Unit Tests
-        run: go test -v .
+      - name: Run provider tests
+        run: go test -v mikrotik
+        env:
+          MIKROTIK_HOST: 127.0.0.1:8728
+          MIKROTIK_USER: admin
+          MIKROTIK_PASSWORD: ''
+
+    services:
+      # Label used to access the service container
+      routeros:
+        image: evilfreelancer/docker-routeros:6.48.3
+        ports:
+          - 8728:8728
