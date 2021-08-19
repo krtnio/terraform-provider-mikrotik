@@ -19,14 +19,13 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Get dependencies
-        run: |
-          go get -v -t -d ./...
+        run: go mod download
 
       - name: Build
         run: go build -v .
 
       - name: Run provider tests
-        run: go test -v ./mikrotik
+        run: cd mikrotik && go test -v ./...
         env:
           MIKROTIK_HOST: 127.0.0.1:8728
           MIKROTIK_USER: admin
