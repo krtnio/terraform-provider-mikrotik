@@ -33,8 +33,11 @@ jobs:
           TF_ACC: 1
 
     services:
-      # Label used to access the service container
       routeros:
         image: evilfreelancer/docker-routeros:6.48.3
         ports:
           - 8728:8728
+        volumes:
+          - /dev/net/tun:/dev/net/tun
+        options: >-
+          --cap-add=NET_ADMIN
